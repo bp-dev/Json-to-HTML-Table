@@ -129,7 +129,9 @@ function ConvertJsonToTable(parsedJson, tableId, tableClassName, linkText)
                                     if(value.data){
                             	        tbCon += tdRow.format(ConvertJsonToTable(eval(value.data), value.tableId, value.tableClassName, value.linkText));
                                     } else {
-                                        tbCon += tdRow.format(ConvertJsonToTable([value], 'table_'+i+'_'+j));
+                                        // Could recurse again by providing [value], but it may cause the strings to get too long...
+                                        // Just stringify the object
+                                        tbCon += tdRow.format(ConvertJsonToTable(JSON.stringify(value), 'table_'+i+'_'+j));
                                     }
                             	} else {
                             		tbCon += tdRow.format(value);
